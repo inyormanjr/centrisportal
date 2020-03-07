@@ -1,13 +1,15 @@
 using System.Threading.Tasks;
 using CentrisWebApi.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CentrisWebApi.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserProfileController:ControllerBase
     {
         private readonly CentrisDataContext _context;
