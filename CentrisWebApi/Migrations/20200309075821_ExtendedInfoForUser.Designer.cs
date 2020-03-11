@@ -3,14 +3,16 @@ using System;
 using CentrisWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentrisWebApi.Migrations
 {
     [DbContext(typeof(CentrisDataContext))]
-    partial class CentrisDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200309075821_ExtendedInfoForUser")]
+    partial class ExtendedInfoForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,47 +64,11 @@ namespace CentrisWebApi.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CollegeAttended")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CollegeYearGraduated")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ContactNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DegreeName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EyeColor")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FaceBookUrl")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
                     b.Property<byte>("Gender")
                         .HasColumnType("INTEGER");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("HighSchoolAttended")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("HighSchoolYearGraduated")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("JobAddress")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("JobDescrtion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("JobName")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("TEXT");
@@ -123,9 +89,6 @@ namespace CentrisWebApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<byte>("UserType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Weight")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("username")

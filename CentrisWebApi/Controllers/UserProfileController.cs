@@ -23,7 +23,7 @@ namespace CentrisWebApi.Controllers
         public async Task<IActionResult> GetUserProfile()
         {
             
-            var result = await _context.UserProfiles.ToListAsync();
+            var result = await _context.Users.ToListAsync();
             if(result.Count == 0)
             {
                 return NotFound("No data found");
@@ -34,7 +34,7 @@ namespace CentrisWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserProfile(int id)
         {
-            var result = await _context.UserProfiles.FirstOrDefaultAsync(x=> x.Id == id);
+            var result = await _context.Users.FirstOrDefaultAsync(x=> x.Id == id);
             if(result == null)
             {
                 return NotFound("No data found");

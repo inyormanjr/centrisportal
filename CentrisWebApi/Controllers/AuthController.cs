@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CentrisWebApi.Data;
 using CentrisWebApi.DTO;
 using CentrisWebApi.models.UserAgg;
-using CentrisWebApi.models.UserProfileAgg;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -38,7 +37,6 @@ namespace CentrisWebApi.Controllers
             var userToCreate = new User
             {
                 username = userForRegistrationDTO.Username,
-                UserType = UserType.Regular
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegistrationDTO.Password);

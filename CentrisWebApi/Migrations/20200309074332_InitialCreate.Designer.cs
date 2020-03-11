@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentrisWebApi.Migrations
 {
     [DbContext(typeof(CentrisDataContext))]
-    [Migration("20200306114330_AddUser")]
-    partial class AddUser
+    [Migration("20200309074332_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,30 +18,35 @@ namespace CentrisWebApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2");
 
-            modelBuilder.Entity("CentrisWebApi.models.UserAgg.User", b =>
+            modelBuilder.Entity("CentrisWebApi.models.UserAgg.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("BLOB");
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
 
-                    b.Property<byte>("UserType")
+                    b.Property<bool>("IsMain")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("username")
+                    b.Property<string>("Url")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("CentrisWebApi.models.UserProfileAgg.UserProfile", b =>
+            modelBuilder.Entity("CentrisWebApi.models.UserAgg.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,9 +61,6 @@ namespace CentrisWebApi.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
@@ -68,8 +70,11 @@ namespace CentrisWebApi.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
 
                     b.Property<DateTime>("SurvivalDate")
                         .HasColumnType("TEXT");
@@ -77,9 +82,21 @@ namespace CentrisWebApi.Migrations
                     b.Property<byte>("UserType")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("username")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CentrisWebApi.models.UserAgg.Photo", b =>
+                {
+                    b.HasOne("CentrisWebApi.models.UserAgg.User", "User")
+                        .WithMany("Photos")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

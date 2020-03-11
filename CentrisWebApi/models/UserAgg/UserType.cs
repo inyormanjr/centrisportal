@@ -1,4 +1,4 @@
-namespace CentrisWebApi.models.UserProfileAgg
+namespace CentrisWebApi.models.UserAgg
 {
     public enum UserType:byte
     {

@@ -1,7 +1,10 @@
 
 using System.Net;
 using System.Text;
+using AutoMapper;
 using CentrisWebApi.Data;
+using CentrisWebApi.Data.IRepositories;
+using CentrisWebApi.Data.Repositories;
 using CentrisWebApi.helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -29,9 +32,11 @@ namespace CentrisWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CentrisDataContext>(z=> z.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
+            services.AddAutoMapper(typeof(UserRepository).Assembly);
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IUserRepository,UserRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(option=> 
                     {
@@ -55,7 +60,7 @@ namespace CentrisWebApi
             else{
                 app.UseExceptionHandler(builder => {
                     builder.Run(async context => {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if(error != null)

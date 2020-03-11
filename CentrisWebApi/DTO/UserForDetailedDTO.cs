@@ -2,33 +2,27 @@ using System;
 using System.Collections.Generic;
 using CentrisWebApi.models.UserAgg;
 
-namespace CentrisWebApi.models.UserAgg
+namespace CentrisWebApi.DTO
 {
-    public class User
+    public class UserForDetailedDTO
     {
-        public User()
-        {
-            this.AccountCreated = DateTime.Now;
-        }
-
         public int Id { get; set; }
         public string username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt {get;set;}
         public UserType UserType {get;set;}
          public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        public string FullName {get;set;}
         public string BaptismalName { get; set; }
         public DateTime Birthday { get; set; }
+        public int Age {get;set;}
         public Gender Gender {get;set;}
         public DateTime SurvivalDate { get; set; }
         public string Address { get; set; }
         public DateTime LastActive { get; set; }
         public DateTime AccountCreated { get; set; }
 
-        //extended info
-        public int ContactNumber { get; set; }
+         public int ContactNumber { get; set; }
         public string FaceBookUrl {get;set;}
         public string HighSchoolAttended { get; set; }
         public int HighSchoolYearGraduated {get;set;}
@@ -44,14 +38,8 @@ namespace CentrisWebApi.models.UserAgg
         public int Height {get;set;}
         public int Weight {get;set;}
         public string EyeColor {get;set;}
-        public ICollection<Photo> Photos {get;set;}
+        public string PhotoUrl {get;set;}
+        public ICollection<PhotoDetailedDTO> Photos {get;set;}
 
-
-        public void SetHashAndSalt(byte[] passwordhash, byte[] passwordsalt)
-        {
-            this.PasswordHash = passwordhash;
-            this.PasswordSalt = passwordsalt;
-        }
-        
     }
 }

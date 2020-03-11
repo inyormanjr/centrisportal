@@ -1,5 +1,4 @@
 using CentrisWebApi.models.UserAgg;
-using CentrisWebApi.models.UserProfileAgg;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentrisWebApi.Data
@@ -12,6 +11,6 @@ namespace CentrisWebApi.Data
         }
 
         public DbSet<User> Users {get;set;}
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Photo> Photos {get;set;} 
     }
 }
