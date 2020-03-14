@@ -15,7 +15,7 @@ namespace CentrisWebApi.Data
         }
         public async Task<User> Login(string username, string password)
         {
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.username == username);
+            User user = await _context.Users.Include(x=> x.Photos).FirstOrDefaultAsync(x => x.username == username);
             if (user == null)
                 return null;
 

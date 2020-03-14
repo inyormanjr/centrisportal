@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentrisWebApi.Data;
 using CentrisWebApi.DTO;
 using CentrisWebApi.models.UserAgg;
@@ -19,10 +20,12 @@ namespace CentrisWebApi.Controllers
 
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper mapper;
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper _mapper)
         {
             _repo = repo;
             _config = config;
+            mapper = _mapper;
         }
 
         [HttpPost("Register")]
@@ -34,13 +37,10 @@ namespace CentrisWebApi.Controllers
             if (await _repo.UserExists(userForRegistrationDTO.Username))
                 return BadRequest("Username already exist.");
 
-            var userToCreate = new User
-            {
-                username = userForRegistrationDTO.Username,
-            };
-
+            var userToCreate = mapper.Map<User>(userForRegistrationDTO);
             var createdUser = await _repo.Register(userToCreate, userForRegistrationDTO.Password);
-            return StatusCode(201);
+            var userToReturn = mapper.Map<UserForDetailedDTO>(createdUser);
+            return CreatedAtRoute("GetUser", new {controoler = "Users", id = createdUser.Id}, userToReturn);
         }
 
         [HttpPost("login")]
@@ -73,9 +73,12 @@ namespace CentrisWebApi.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken token;
             token = tokenHandler.CreateToken(tokenDescriptor);
+
+            var user = mapper.Map<UserForDetailedDTO>(userFromRepo);
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                user
             });
         }
     }

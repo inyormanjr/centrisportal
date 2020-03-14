@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CentrisWebApi.models.Testimonials;
 using CentrisWebApi.models.UserAgg;
 
 namespace CentrisWebApi.models.UserAgg
@@ -45,6 +46,7 @@ namespace CentrisWebApi.models.UserAgg
         public int Weight {get;set;}
         public string EyeColor {get;set;}
         public ICollection<Photo> Photos {get;set;}
+        public ICollection<Testimonial> Testimonials {get;set;}
 
 
         public void SetHashAndSalt(byte[] passwordhash, byte[] passwordsalt)

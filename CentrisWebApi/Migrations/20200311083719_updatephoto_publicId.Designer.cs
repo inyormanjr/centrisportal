@@ -3,51 +3,20 @@ using System;
 using CentrisWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentrisWebApi.Migrations
 {
     [DbContext(typeof(CentrisDataContext))]
-    partial class CentrisDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200311083719_updatephoto_publicId")]
+    partial class updatephoto_publicId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2");
-
-            modelBuilder.Entity("CentrisWebApi.models.Testimonials.Testimonial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DateTimeAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsAproved")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsHearted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("TestimonyById")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TestimonyById");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Testimonials");
-                });
 
             modelBuilder.Entity("CentrisWebApi.models.UserAgg.Photo", b =>
                 {
@@ -170,21 +139,6 @@ namespace CentrisWebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("CentrisWebApi.models.Testimonials.Testimonial", b =>
-                {
-                    b.HasOne("CentrisWebApi.models.UserAgg.User", "TestimonyBy")
-                        .WithMany()
-                        .HasForeignKey("TestimonyById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CentrisWebApi.models.UserAgg.User", "User")
-                        .WithMany("Testimonials")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CentrisWebApi.models.UserAgg.Photo", b =>
